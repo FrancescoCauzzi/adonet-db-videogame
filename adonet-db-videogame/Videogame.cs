@@ -10,7 +10,7 @@ namespace adonet_db_videogame
     public class Videogame
     {
         // properties
-        public BigInteger Id {  get; private set; }
+        public long Id {  get; private set; }
 
         public string Name { get; private set; }
 
@@ -18,21 +18,21 @@ namespace adonet_db_videogame
 
         public DateTime ReleaseDate { get; private set; }
 
-        public BigInteger SoftwareHouseID { get; private set; }
+        public long SoftwareHouseId { get; private set; }
 
-        public Videogame (BigInteger id, string name, string overview, DateTime releaseDate, BigInteger softwareHouseID)
+        public Videogame (long id, string name, string overview, DateTime releaseDate, long softwareHouseId)
         {
             Id = id;
             Name = name;
             Overview = overview;
             ReleaseDate = releaseDate;
-            SoftwareHouseID = softwareHouseID;
+            SoftwareHouseId = softwareHouseId;
         }
 
         // override ToSTring()
         public override string ToString()
         {
-            return $"{Id} {Name} {Overview} {ReleaseDate} {SoftwareHouseID}";
+            return $"{Id} {Name} {Overview} {ReleaseDate} {SoftwareHouseId}";
         }
     }
 }

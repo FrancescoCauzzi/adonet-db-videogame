@@ -13,7 +13,6 @@ namespace adonet_db_videogame
 
         public static List<Videogame> GetVideogames()
 		{
-
 			List<Videogame> videogames = new List<Videogame>();
 
 			using (SqlConnection connection = new SqlConnection(connectionString)) {
@@ -41,8 +40,40 @@ namespace adonet_db_videogame
 
 				return videogames;
                 // we do not need to close the connection, it will be closed automatically thanks to using statement (using-wiht-resources)
-			
 			}
 		}
+
+        public static bool InsertVideogame(Videogame videogame)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "INSERT INTO videogames (name, overview, release_date, software_house_id) VALUES (@name, @overview, @release_date, @software_house_id);";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.Add(new SqlParameter("@name", videogame.Name));
+                    cmd.Parameters.Add(new SqlParameter("@overview", videogame.Overview));
+                    cmd.Parameters.Add(new SqlParameter("@release_date", videogame.ReleaseDate));
+                    cmd.Parameters.Add(new("@software_house_id", videogame.SoftwareHouseId));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        return true;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return false;
+            }
+        }
     }
+    
 }
