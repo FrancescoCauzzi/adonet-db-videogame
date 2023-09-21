@@ -54,10 +54,25 @@ namespace adonet_db_videogame
                             WriteLine(videogameFounded);
                         }
                         break;
-                    /*
+                    
                     case 3:
-                        VideogameManager.FindVideogameByName();
+                        Write("Insert the name of the videogame you are looking for: ");
+                        string videogameSnippet = InputChecker.GetStringInput();
+                        List<Videogame> videogameList= VideogameManager.GetVideogameByStringSnippet(videogameSnippet);
+                        if(videogameList.Count > 0)
+                        {
+                            WriteLine("The following videogames have been found:");
+                            foreach(Videogame videogame in videogameList)
+                            {
+                                WriteLine(videogame);
+                            }
+                        }else{
+                            WriteLine("No videogames have been found");
+                        
+                        }                      
+                        
                         break;
+                    /*
                     case 4:
                         VideogameManager.DeleteVideogameById();
                         break;

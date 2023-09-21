@@ -35,7 +35,8 @@ namespace adonet_db_videogame
 
 				}catch(Exception ex)
 				{
-					Console.WriteLine(ex.Message);
+					// Console.WriteLine(ex.Message);
+                    Console.WriteLine("An error occurred: " + ex.Message);
 				}
 
 				return videogames;
@@ -69,7 +70,8 @@ namespace adonet_db_videogame
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    // Console.WriteLine(ex.Message);
+                    Console.WriteLine("An error occurred: " + ex.Message);
                 }
                 return false;
             }
@@ -101,9 +103,41 @@ namespace adonet_db_videogame
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
+                    Console.WriteLine("An error occurred: " + ex.Message);
                 }
                 return videogameReaded;
+            }
+
+        }
+
+        public static List<Videogame> GetVideogameByStringSnippet(string snippet){
+            List<Videogame> videogames = new List<Videogame>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "SELECT videogames.id, videogames.name, videogames.overview, videogames.release_date, videogames.software_house_id FROM videogames WHERE videogames.name LIKE '%' + @snippet + '%';";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.Add(new SqlParameter("@snippet", snippet));
+
+                    using(SqlDataReader data = cmd.ExecuteReader())
+                    {
+                        while (data.Read())
+                        {
+                            Videogame VideogameReaded = new Videogame(data.GetInt64(0), data.GetString(1), data.GetString(2), data.GetDateTime(3), data.GetInt64(4));
+                            videogames.Add(VideogameReaded);
+                       }
+                    }                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred: " + ex.Message);
+                }
+                return videogames;
             }
 
         }
