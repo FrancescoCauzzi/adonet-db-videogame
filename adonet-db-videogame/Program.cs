@@ -44,10 +44,17 @@ namespace adonet_db_videogame
                             WriteLine("The videogame could not be inserted");
                         }
                         break;
-                    /*
+                    
                     case 2:
-                        VideogameManager.FindVideogameById();
+                        WriteLine("Insert the id of the videogame you are looking for");
+                        int videogameId = InputChecker.GetIntInput();
+                        Videogame videogameFounded = VideogameManager.GetVideoGameById(videogameId);
+                        if(videogameFounded != null)
+                        {
+                            WriteLine(videogameFounded);
+                        }
                         break;
+                    /*
                     case 3:
                         VideogameManager.FindVideogameByName();
                         break;
@@ -61,6 +68,7 @@ namespace adonet_db_videogame
                     
                 }
                 WriteLine();
+                WriteLine("What do you want to do now?");
                 Write("Insert a command: ");
                 selectedOption = InputChecker.GetIntInput();
                 WriteLine();

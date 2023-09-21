@@ -32,7 +32,12 @@ namespace adonet_db_videogame
         // override ToSTring()
         public override string ToString()
         {
-            return $"{Id} {Name} {Overview} {ReleaseDate} {SoftwareHouseId}";
+            return @$"
+Videogame Id: {Id} 
+Name: {Name} 
+Overview: {Overview} 
+ReleaseDate: {ReleaseDate} 
+SoftwareHouseId: {SoftwareHouseId}";
         }
     }
 }

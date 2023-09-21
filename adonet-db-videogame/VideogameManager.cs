@@ -74,6 +74,41 @@ namespace adonet_db_videogame
                 return false;
             }
         }
+
+        public static Videogame GetVideoGameById(long id)
+        {
+            Videogame videogameReaded = new Videogame(0,"","",DateTime.Now,0);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "SELECT videogames.id, videogames.name, videogames.overview, videogames.release_date, videogames.software_house_id FROM videogames WHERE videogames.id = @id;";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.Add(new SqlParameter("@id", id));
+
+                    using (SqlDataReader data = cmd.ExecuteReader())
+                    {
+                        if (data.Read())
+                        {
+                            videogameReaded = new Videogame(data.GetInt64(0), data.GetString(1), data.GetString(2), data.GetDateTime(3), data.GetInt64(4));
+                            return videogameReaded;
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return videogameReaded;
+            }
+
+        }
+
+        
     }
     
 }
