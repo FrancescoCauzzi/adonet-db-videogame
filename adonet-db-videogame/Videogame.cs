@@ -36,7 +36,7 @@ namespace adonet_db_videogame
 Videogame Id: {Id} 
 Name: {Name} 
 Overview: {Overview} 
-ReleaseDate: {ReleaseDate} 
+ReleaseDate: {ReleaseDate.Day}/{ReleaseDate.Month}/{ReleaseDate.Year} 
 SoftwareHouseId: {SoftwareHouseId}";
         }
     }

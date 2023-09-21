@@ -111,7 +111,7 @@ namespace adonet_db_videogame
 
         }
 
-        public static List<Videogame> GetVideogameByStringSnippet(string snippet){
+        public static List<Videogame> GetVideogamesByStringSnippet(string snippet){
             List<Videogame> videogames = new List<Videogame>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

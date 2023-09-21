@@ -8,13 +8,14 @@ namespace adonet_db_videogame
     {
         static void Main(string[] args)
         {
-            WriteLine("Welcome to our videogame manager console app!");
-            Write(@"Insert a command you wish to run:
+            string welcomeMessage = @"Insert a command you wish to run:
             - 1: insert a new videogame 
             - 2: find a videogame by its id
             - 3: find a videogame by a string snippet matching its name
             - 4: delete a specific videogame by its id
-            - 5: close the program");
+            - 5: close the program";
+            WriteLine("Welcome to our videogame manager console app!");
+            Write(welcomeMessage);
             WriteLine();
             Write("Insert a command: ");
             int selectedOption = InputChecker.GetIntInput();
@@ -46,7 +47,7 @@ namespace adonet_db_videogame
                         break;
                     
                     case 2:
-                        WriteLine("Insert the id of the videogame you are looking for");
+                        Write("Insert the id of the videogame you are looking for: ");
                         int videogameId = InputChecker.GetIntInput();
                         Videogame videogameFounded = VideogameManager.GetVideoGameById(videogameId);
                         if(videogameFounded != null)
@@ -58,10 +59,11 @@ namespace adonet_db_videogame
                     case 3:
                         Write("Insert the name of the videogame you are looking for: ");
                         string videogameSnippet = InputChecker.GetStringInput();
-                        List<Videogame> videogameList= VideogameManager.GetVideogameByStringSnippet(videogameSnippet);
+                        List<Videogame> videogameList= VideogameManager.GetVideogamesByStringSnippet(videogameSnippet);
+                        WriteLine();
                         if(videogameList.Count > 0)
                         {
-                            WriteLine("The following videogames have been found:");
+                            WriteLine($"We have found {videogameList.Count} videogames with the snippet '{videogameSnippet}', they are: ");
                             foreach(Videogame videogame in videogameList)
                             {
                                 WriteLine(videogame);
@@ -84,6 +86,7 @@ namespace adonet_db_videogame
                 }
                 WriteLine();
                 WriteLine("What do you want to do now?");
+                WriteLine(welcomeMessage);
                 Write("Insert a command: ");
                 selectedOption = InputChecker.GetIntInput();
                 WriteLine();
