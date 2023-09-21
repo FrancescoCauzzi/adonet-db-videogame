@@ -48,16 +48,18 @@ namespace adonet_db_videogame
                     
                     case 2:
                         Write("Insert the id of the videogame you are looking for: ");
-                        int videogameId = InputChecker.GetIntInput();
+                        long videogameId = InputChecker.GetIntInput();
                         Videogame videogameFounded = VideogameManager.GetVideoGameById(videogameId);
                         if(videogameFounded != null)
                         {
                             WriteLine(videogameFounded);
+                        }else{
+                            WriteLine("No videogame has been found");
                         }
                         break;
                     
                     case 3:
-                        Write("Insert the name of the videogame you are looking for: ");
+                        Write("Insert the snippet of the name of the videogame you are looking for: ");
                         string videogameSnippet = InputChecker.GetStringInput();
                         List<Videogame> videogameList= VideogameManager.GetVideogamesByStringSnippet(videogameSnippet);
                         WriteLine();
@@ -77,7 +79,7 @@ namespace adonet_db_videogame
                     
                     case 4:
                         Write("Insert the id of the videogame you want to delete: ");
-			            long idVideogameToDelete = (long)InputChecker.GetIntInput();
+			            long idVideogameToDelete = InputChecker.GetIntInput();
                         bool deleted = VideogameManager.DeleteVideogameById(idVideogameToDelete);
 
                         if (deleted)

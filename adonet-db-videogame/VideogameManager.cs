@@ -79,37 +79,36 @@ namespace adonet_db_videogame
 
         public static Videogame GetVideoGameById(long id)
         {
-            Videogame videogameReaded = new Videogame(0,"","",DateTime.Now,0);
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            const string query = "SELECT id, name, overview, release_date, software_house_id FROM videogames WHERE id = @id;";
+            try
             {
-                try
+                using SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+
+                using SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.Add(new SqlParameter("@id", id));
+
+                using SqlDataReader data = cmd.ExecuteReader();
+                if (data.Read())
                 {
-                    connection.Open();
-
-                    string query = "SELECT videogames.id, videogames.name, videogames.overview, videogames.release_date, videogames.software_house_id FROM videogames WHERE videogames.id = @id;";
-
-                    SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.Add(new SqlParameter("@id", id));
-
-                    using (SqlDataReader data = cmd.ExecuteReader())
-                    {
-                        if (data.Read())
-                        {
-                            videogameReaded = new Videogame(data.GetInt64(0), data.GetString(1), data.GetString(2), data.GetDateTime(3), data.GetInt64(4));
-                            return videogameReaded;
-                        }
-                    }
-
+                    return new Videogame(
+                        data.GetInt64(0),
+                        data.GetString(1),
+                        data.GetString(2),
+                        data.GetDateTime(3),
+                        data.GetInt64(4)
+                    );
                 }
-                catch (Exception ex)
-                {
-                    //Console.WriteLine(ex.Message);
-                    Console.WriteLine("An error occurred: " + ex.Message);
-                }
-                return videogameReaded;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+                // Optionally, re-throw the exception or log it to a file
             }
 
+            return null!; // Return null if no record is found
         }
+
 
         public static List<Videogame> GetVideogamesByStringSnippet(string snippet){
             List<Videogame> videogames = new List<Videogame>();
@@ -166,7 +165,10 @@ namespace adonet_db_videogame
 				}
 				catch (Exception ex)
 				{
-					Console.WriteLine(ex.Message);
+					// Console.WriteLine(ex.Message);
+                    Console.WriteLine("An error occurred: " + ex.Message);
+
+                    
 				}
 
 				return false;
