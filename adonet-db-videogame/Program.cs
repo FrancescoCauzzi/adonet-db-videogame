@@ -74,11 +74,23 @@ namespace adonet_db_videogame
                         }                      
                         
                         break;
-                    /*
+                    
                     case 4:
-                        VideogameManager.DeleteVideogameById();
-                        break;
-                    */
+                        Write("Insert the id of the videogame you want to delete: ");
+			            long idVideogameToDelete = (long)InputChecker.GetIntInput();
+                        bool deleted = VideogameManager.DeleteVideogameById(idVideogameToDelete);
+
+                        if (deleted)
+                        {
+                            WriteLine("The videogame has been deleted correctly");
+                        }
+                        else
+                        {
+                            WriteLine("The videogame could not be deleted");
+                        }
+
+                        break;                        
+                    
                     default:
                         WriteLine("Invalid option");
                         break;
