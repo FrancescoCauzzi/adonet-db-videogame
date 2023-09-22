@@ -49,13 +49,15 @@ namespace adonet_db_videogame
                     case 2:
                         Write("Insert the id of the videogame you are looking for: ");
                         long videogameId = InputChecker.GetIntInput();
-                        Videogame videogameFounded = VideogameManager.GetVideoGameById(videogameId);
-                        if(videogameFounded != null)
-                        {
+                        try {
+                            Videogame videogameFounded = VideogameManager.GetVideoGameById(videogameId);
                             WriteLine(videogameFounded);
-                        }else{
-                            WriteLine("No videogame has been found");
                         }
+                        catch (Exception ex){
+                            WriteLine(ex.Message);
+                        }
+                        
+                        
                         break;
                     
                     case 3:

@@ -45,7 +45,7 @@ namespace csharp_gestore_eventi
         {
             while (true)
             {
-                //WriteLine("Inserisci una parola");
+                
                 string? word = ReadLine();
                 if (!string.IsNullOrEmpty(word))
                 {
